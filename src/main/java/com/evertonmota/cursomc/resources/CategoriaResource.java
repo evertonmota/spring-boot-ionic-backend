@@ -1,9 +1,10 @@
 package com.evertonmota.cursomc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.evertonmota.cursomc.domain.Categoria;
+import com.evertonmota.cursomc.dto.CategoriaDTO;
 import com.evertonmota.cursomc.services.CategoriaService;
-import com.evertonmota.cursomc.services.exceptions.DataIntegrityException;
 
 @RestController
 @RequestMapping(value="/categorias")
@@ -61,4 +62,16 @@ public class CategoriaResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	//Listar Todas as Categorias.
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity <List<CategoriaDTO>> findAll () {
+		
+		List <Categoria> listaCategorias = service.findAll();
+		
+		// Cada elemento obj da lista, uso operador , funcao anonima
+		//convertendo uma lista de um tipo para outra tipo usando stream().
+		List<CategoriaDTO> listaCategoriasDTO = listaCategorias.stream().map(obj -> new CategoriaDTO (obj)).collect(Collectors.toList());
+		
+		return  ResponseEntity.ok().body(listaCategoriasDTO);
+	}
 }
