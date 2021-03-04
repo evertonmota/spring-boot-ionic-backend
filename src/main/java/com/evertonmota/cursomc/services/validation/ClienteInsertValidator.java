@@ -32,17 +32,17 @@ public class ClienteInsertValidator implements ConstraintValidator< ClienteInser
 		
 		// Testo se o meu OBJDTO.TIPO é PessoaFisica e  se o CPF nao for válido crio mensagem de erro.
 		if(objDTO.getTipoCliente().equals(TipoCliente.PESSOAFISICA.getCod()) && !BR.isValidCPF(objDTO.getCpfCnpj())) {
-			messages.add(new FieldMessage ("cpfCnpj", "CPF INVÁLIDO."));
+			messages.add(new FieldMessage ("cpfCnpj","CPF INVÁLIDO."));
 		}
 		
 		if(objDTO.getTipoCliente().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDTO.getCpfCnpj())) {
-			messages.add(new FieldMessage ("cpfCnpj", "CNPJ INVÁLIDO."));
+			messages.add(new FieldMessage ("cpfCnpj","CNPJ INVÁLIDO."));
 		}
 		
 		Cliente cliente = repository.findByEmail(objDTO.getEmail());
 		
 		if(cliente != null) {
-			messages.add(new FieldMessage("email", "Email já existente."));
+			messages.add(new FieldMessage("email","Email já existente."));
 		}
 		
 		
