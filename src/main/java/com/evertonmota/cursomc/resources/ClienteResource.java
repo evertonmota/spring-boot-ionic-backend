@@ -78,8 +78,7 @@ public class ClienteResource {
 		
 		List <Cliente> listaClientes = service.findAll();
 		
-		// Cada elemento obj da lista, uso operador , funcao anonima
-		//convertendo uma lista de um tipo para outra tipo usando stream().
+		// Cada elemento obj da lista, uso operador , funcao anonima, convertendo uma lista de um tipo para outra tipo usando stream().
 		List<ClienteDTO> listaClientesDTO = listaClientes.stream().map(obj -> new ClienteDTO (obj)).collect(Collectors.toList());
 		
 		return  ResponseEntity.ok().body(listaClientesDTO);

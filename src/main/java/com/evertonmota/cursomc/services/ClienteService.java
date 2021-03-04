@@ -56,6 +56,9 @@ public class ClienteService {
 	private void updateData(Cliente clienteObj, Cliente obj) {
 		 clienteObj.setNome(obj.getNome());
 		 clienteObj.setEmail(obj.getEmail());
+		 //clienteObj.setCpfCnpj(obj.getCpfCnpj());
+		 //clienteObj.setTipoCliente(obj.getTipoCliente());
+
 	}
 
 	public void delete (Integer id) {
