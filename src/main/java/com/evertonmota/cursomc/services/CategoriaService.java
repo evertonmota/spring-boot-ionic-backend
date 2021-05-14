@@ -25,8 +25,16 @@ public class CategoriaService {
 	
 	
 	public Categoria find( Integer id) {
+		// Na versão 7 do java era usado 
+		// ex :. Categoria cat = repository.findOne(id) caso nao exista o id , retornava um valor Null. 
+		// Versão do Spring 2.x.x Java Versao 8
+		// Retorna um Optional. É um objeto container que vai vai carregar o tipo que voce informar.
+		// Vai encapsular o obj instanciado ou nao. 
 		Optional<Categoria> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID :" +id + " Tipo : " + Categoria.class.getName())  );
+		// return obj.orElse(null)
+		// ou criar uma Classse
+		return obj.orElseThrow(() -> 
+		new ObjectNotFoundException("Objeto não encontrado! ID :" +id + " Tipo : " + Categoria.class.getName())  );
 	}
 	
 	public Categoria insert( Categoria obj) {

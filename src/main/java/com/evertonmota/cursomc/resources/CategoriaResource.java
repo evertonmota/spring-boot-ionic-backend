@@ -31,6 +31,8 @@ public class CategoriaResource {
 	@RequestMapping( value="/{id}",method=RequestMethod.GET)
 	public ResponseEntity<Categoria> find (@PathVariable Integer id) {
 		Categoria obj = service.find(id);
+		// ResponseEntity -> É um objeto complexo que vai ter Http como Resposta e varias informações do protocolo HTTTP.
+		// uma forma de dizer que ocorreu tudo bem. É colocar ResponseEntity.ok e como o corpo o objeto obj que busquei CATEGORIA
 		return  ResponseEntity.ok().body(obj);
 	}
 	
