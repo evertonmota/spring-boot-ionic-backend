@@ -29,7 +29,7 @@ public abstract class  Pagamento implements Serializable{
 	@JsonIgnore
     @OneToOne
     @JoinColumn(name="pedido_id")
-    @MapsId
+    @MapsId // Para garantir que o ID do Pagamento seja o mesmo do Pedido add esta Anotação MapsId.
 	private Pedido pedido;
 	
 	public Pagamento() {

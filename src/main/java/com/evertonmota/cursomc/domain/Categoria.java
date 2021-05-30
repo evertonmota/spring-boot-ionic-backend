@@ -20,6 +20,7 @@ public class Categoria implements Serializable{
 	private Integer id;
 	private String nome;
 	
+	// Foi usado a anotação @JasonManagedReference. Mas, nao é mais necessário isso. Para evitar a referencia ciclica.
 	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	

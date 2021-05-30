@@ -11,6 +11,7 @@ public class CursomcApplication implements CommandLineRunner {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
 
+	//Método auxiliar para executar alguma ação, quando aplicação Iniciar.
 	@Override
 	public void run(String... args) throws Exception {
 		

@@ -25,7 +25,10 @@ public class Pedido implements Serializable{
 	private Integer id;
 	private Date instante;
 
-	// Isso é necessário porque se nao da um erro de Entidade Transiente. Quando for salvar um pedido e o pagamento dele.
+	// Isso é necessário porque se nao da um erro de Entidade Transiente. 
+	// Quando for salvar um pedido e o pagamento dele.
+	// Mapeamento Bidirecional de 1 p 1.
+	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
 	
@@ -37,6 +40,7 @@ public class Pedido implements Serializable{
 	@JoinColumn(name="endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega;
 	
+	// A classe pedido vai ter um conjunto de ItemPedido
 	@OneToMany(mappedBy="id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
 	

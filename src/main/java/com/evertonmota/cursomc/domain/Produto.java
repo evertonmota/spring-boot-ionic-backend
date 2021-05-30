@@ -28,6 +28,15 @@ public class Produto implements Serializable{
 	private String nome;
 	private Double preco;
 	
+	
+	// Evita uma referencia ciclica.Entre Categorias e Produtos
+	//  A Categoria tem uma lista de Produtos. E Produto tem uma lista de Categorias.
+	// Quando é serializado o JSON, ele fica acessando a categoria e pega o produto, acessa  o Produto e pega as Categorias. 
+	// Infinitamente.
+	// Por isto, usamos  a anotação @JsonIgnore. E nao mais o @JsonBackReference 
+	//(do outro lado da associação ja foram buscados os objetos.
+	// E vai omitir a lista de categorias para cada produto.
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name="PRODUTO_CATEGORIA",
@@ -54,8 +63,11 @@ public class Produto implements Serializable{
 	
 	@JsonIgnore
 	public List <Pedido> getPedidos(){
-		List<Pedido> lista = new ArrayList<>();
 		
+		List<Pedido> lista = new ArrayList<>();
+
+		// vou percorrer todos itensPedido na lista de itens
+		// para cada itemPedido x que existir na lista de itens irei add o pedido associado a ele na lista
 		for ( ItemPedido i : itens ) {
 			lista.add(i.getPedido());
 		}

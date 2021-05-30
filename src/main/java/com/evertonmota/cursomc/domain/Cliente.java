@@ -34,6 +34,9 @@ public class Cliente implements Serializable{
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
+	//Coleção de Strings associado ao Cliente. Set é um conjunto. E nao aceita Repetição na coleção.
+	// Mepando o objeto relacional como entidade Fraca.
+	
 	@ElementCollection 
 	@CollectionTable(name="TELEFONE")
 	private Set <String> telefones = new HashSet<>();

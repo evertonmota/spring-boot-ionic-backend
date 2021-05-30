@@ -13,7 +13,7 @@ public class ItemPedido implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@JsonIgnore
-	@EmbeddedId
+	@EmbeddedId //Este id é um atributo composto. Tipo auxiliar
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
 	private Double desconto;

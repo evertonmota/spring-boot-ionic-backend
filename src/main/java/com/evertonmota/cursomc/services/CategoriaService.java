@@ -30,11 +30,16 @@ public class CategoriaService {
 		// Versão do Spring 2.x.x Java Versao 8
 		// Retorna um Optional. É um objeto container que vai vai carregar o tipo que voce informar.
 		// Vai encapsular o obj instanciado ou nao. 
+		
 		Optional<Categoria> obj = repo.findById(id);
+		
 		// return obj.orElse(null)
 		// ou criar uma Classse
-		return obj.orElseThrow(() -> 
-		new ObjectNotFoundException("Objeto não encontrado! ID :" +id + " Tipo : " + Categoria.class.getName())  );
+		
+		//Retorna uma Exceção Personalizada. Caso o Objeto nao exista. Vamos acrescentar aqui um Handler. Que é o Interceptador 
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+										"Objeto não encontrado! ID :" + id + 
+										" Tipo : " + Categoria.class.getName())  );
 	}
 	
 	public Categoria insert( Categoria obj) {
@@ -74,6 +79,7 @@ public class CategoriaService {
 		return repo.findAll(pageRequest);
 	}
 	
+	// Método auxiliar que instância uma categoria apartir de um DTO.
 	public Categoria fromDTO( CategoriaDTO objDTO) {
 		
 		return new Categoria(objDTO.getId(), objDTO.getNome());

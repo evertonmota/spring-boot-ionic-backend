@@ -13,6 +13,7 @@ public enum TipoCliente {
 		 this.descricao = descricao;
 	}
 
+	// Uma vez que você instância um Enumerado, voce nao muda o nome dele. Então somente o getDescription
 	public int getCod() {
 		return cod;
 	}
@@ -21,15 +22,16 @@ public enum TipoCliente {
 		return descricao;
 	}
 
+	//Esta operação devera ser possivel de ser executada, mesmo sem instanciar obejtos.
 	public static TipoCliente toEnum(Integer id) {
 		
 		if( id == null) {
 			return null;
 		}
 		
-		for(TipoCliente tp : TipoCliente.values()) {
-			if(id.equals(tp.getCod())) {
-				return tp;
+		for(TipoCliente tipoCliente : TipoCliente.values()) {
+			if(id.equals(tipoCliente.getCod())) {
+				return tipoCliente;
 			}
 		}
 		throw new IllegalArgumentException("Id inválido." + id);
