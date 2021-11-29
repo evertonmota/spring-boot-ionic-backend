@@ -41,18 +41,14 @@ public class ClienteResource {
 	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO){
 		
 		Cliente obj = service.fromDTO(objDTO);
-		
 		// A operação save do repository, retorna um object.
 		obj = service.insert(obj); 
 
 		// recuperar um novo id e fornecer como argumento da URI.
 		// fromCurrentRequest() = http://127.0.0.1:8080/Clientes 
 		// .path("/{id}"); /3
-		
 		URI url = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		
 		return ResponseEntity.created(url).build();
-		 
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
