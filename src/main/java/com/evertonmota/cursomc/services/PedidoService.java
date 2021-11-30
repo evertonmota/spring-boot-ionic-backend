@@ -10,6 +10,7 @@ import com.evertonmota.cursomc.domain.ItemPedido;
 import com.evertonmota.cursomc.domain.PagamentoComBoleto;
 import com.evertonmota.cursomc.domain.Pedido;
 import com.evertonmota.cursomc.domain.enums.EstadoPagamento;
+import com.evertonmota.cursomc.repositories.ClienteRepository;
 import com.evertonmota.cursomc.repositories.ItemPedidoRepository;
 import com.evertonmota.cursomc.repositories.PagamentoRepository;
 import com.evertonmota.cursomc.repositories.PedidoRepository;
@@ -34,6 +35,8 @@ public class PedidoService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
+	@Autowired
+	private ClienteService clienteService;
 	
 	public Pedido find( Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
@@ -43,6 +46,7 @@ public class PedidoService {
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
+		obj.setCliente(clienteService.find(obj.getCliente().getId()));
 		obj.getPagamento().setTipoPagamento(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 		
@@ -54,14 +58,15 @@ public class PedidoService {
 		pagamentoRepository.save(obj.getPagamento());
 		
 		for(ItemPedido pedidos : obj.getItens()) {
-			
 			pedidos.setDesconto(0.0);
-			pedidos.setPreco(produtoService.find(pedidos.getProduto().getId()).getPreco());
+			pedidos.setProduto(produtoService.find(pedidos.getProduto().getId()));;
+			pedidos.setPreco(pedidos.getProduto().getPreco());
 			pedidos.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
+		System.out.println(obj);
 		return obj;
-
+		
 	}
 
 }
