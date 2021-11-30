@@ -10,7 +10,6 @@ import com.evertonmota.cursomc.domain.ItemPedido;
 import com.evertonmota.cursomc.domain.PagamentoComBoleto;
 import com.evertonmota.cursomc.domain.Pedido;
 import com.evertonmota.cursomc.domain.enums.EstadoPagamento;
-import com.evertonmota.cursomc.repositories.ClienteRepository;
 import com.evertonmota.cursomc.repositories.ItemPedidoRepository;
 import com.evertonmota.cursomc.repositories.PagamentoRepository;
 import com.evertonmota.cursomc.repositories.PedidoRepository;
@@ -38,6 +37,9 @@ public class PedidoService {
 	@Autowired
 	private ClienteService clienteService;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	public Pedido find( Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID :" +id + " Tipo : " + Pedido.class.getName())  );
@@ -64,7 +66,7 @@ public class PedidoService {
 			pedidos.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
-		System.out.println(obj);
+		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
 		
 	}
