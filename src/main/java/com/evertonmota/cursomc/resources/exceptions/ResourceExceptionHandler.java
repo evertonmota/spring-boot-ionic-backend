@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.evertonmota.cursomc.services.exceptions.AuthorizationException;
 import com.evertonmota.cursomc.services.exceptions.DataIntegrityException;
 import com.evertonmota.cursomc.services.exceptions.ObjectNotFoundException;
 
@@ -49,4 +50,14 @@ public class ResourceExceptionHandler {
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
+	
+	@ExceptionHandler(AuthorizationException.class) // Para indicar que é um tratador de exceções deste tipo de exceção.
+	public ResponseEntity<StandardError> Authorization(ObjectNotFoundException e, HttpServletRequest request) {
+		
+		// Objeto nao encontrado, a mensagem da exceççao, e o horário local do sistema.
+		StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis());
+	
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+	}
+	
 }
